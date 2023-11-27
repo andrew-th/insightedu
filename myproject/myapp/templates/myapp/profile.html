@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>Profile - InsightEDU</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: #fff;
+        }
+
+        .jumbotron {
+            background: transparent;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-content {
+            max-width: 100%;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+        }
+
+        .card-title, .card-text {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="jumbotron">
+            <h1 style="font-size: 48px;">School and District Profiles</h1>
+            <p style="font-size: 24px;">Select from the dropdown menus</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4 profile-content">
+                <h3>Choose a District</h3>
+                <select id="districts" class="form-select mb-3" aria-label="Select a District" onchange="showSchools(this)">
+                    <option value="0" selected>Select a District</option>
+                    <option value="1">District 1</option>
+                    <option value="2">District 2</option>
+                </select>
+
+                <!-- Schools for District 1 -->
+                <div id="district-1" class="d-none">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">School 1A</h5>
+                            <p class="card-text">Details for School 1A...</p>
+                            <button class="btn btn-primary" onclick="displayGraph('1A')">Learn More</button> 
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">School 1B</h5>
+                            <p class="card-text">Details for School 1B...</p>
+                            <button class="btn btn-primary" onclick="displayGraph('1B')">Learn More</button> 
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schools for District 2 -->
+                <div id="district-2" class="d-none">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">School 2A</h5>
+                            <p class="card-text">Details for School 2A...</p>
+                            <button class="btn btn-primary" onclick="displayGraph('2A')">Learn More</button> 
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">School 2B</h5>
+                            <p class="card-text">Details for School 2B...</p>
+                            <button class="btn btn-primary" onclick="displayGraph('2B')">Learn More</button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4"> 
+                <canvas id="myChart" style="display: none;"></canvas>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-center">Table1 Data</h2>
+<ul class="list-group">
+    {% for entry in data %}
+        <li class="list-group-item" style="background-color: rgba(255, 255, 255, 0.1);">Field1 Value: {{ entry.field1 }}</li>
+    {% empty %}
+        <li class="list-group-item" style="background-color: rgba(255, 255, 255, 0.1);">No data available.</li>
+    {% endfor %}
+</ul>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function showSchools(selectElement) {
+            // Hide all school sections
+            document.getElementById('district-1').classList.add('d-none');
+            document.getElementById('district-2').classList.add('d-none');
+            
+            // Show selected district's schools
+            const value = selectElement.value;
+            if (value !== "0") {
+                document.getElementById(`district-${value}`).classList.remove('d-none');
+            }
+        }
+
+        var chart;
+
+        function displayGraph(datasetType) {
+            document.getElementById('myChart').style.display = 'block';
+
+            // If a chart was previously created, destroy it
+            if (chart) {
+                chart.destroy();
+            }
+
+            var schoolSizes = [100, 200, 300, 400, 500];
+            var data;
+
+            // Depending on which button is clicked, choose the dataset
+            switch (datasetType) {
+                case "1A":
+                    data = {
+                        lowSES: [60, 70, 65, 68, 69],
+                        highSES: [90, 88, 87, 85, 84]
+                    };
+                    break;
+                case "1B":
+                    data = {
+                        lowSES: [65, 72, 63, 66, 70],
+                        highSES: [92, 86, 88, 83, 82]
+                    };
+                    break;
+                case "2A":
+                    data = {
+                        lowSES: [62, 74, 64, 69, 71],
+                        highSES: [89, 87, 85, 86, 85]
+                    };
+                    break;
+                case "2B":
+                    data = {
+                        lowSES: [64, 73, 62, 67, 68],
+                        highSES: [91, 85, 86, 82, 80]
+                    };
+                    break;
+                default:
+                    data = {
+                        lowSES: [60, 70, 65, 68, 69],
+                        highSES: [90, 88, 87, 85, 84]
+                    };
+                    break;
+            }
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: schoolSizes,
+                    datasets: [{
+                        label: 'Low SES',
+                        data: data.lowSES,
+                        borderColor: '#FF5733',
+                        fill: false
+                    }, {
+                        label: 'High SES',
+                        data: data.highSES,
+                        borderColor: '#337AFF',
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            title: {
+                                display: true,
+                                text: 'School Size'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Achievement Score'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

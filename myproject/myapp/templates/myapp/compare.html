@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>InsightEDU - School Comparison</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: #fff;
+        }
+
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .jumbotron {
+            background: transparent;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .big-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #fff;
+            padding: 20px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .big-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        select.form-control, label {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #fff;
+            border-radius: 5px;
+        }
+
+        select.form-control:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="jumbotron">
+            <h1 style="font-size: 48px;">Compare Schools</h1>
+        </div>
+        <!-- Your school and district form goes here -->
+        <div class="container mt-4">
+           <div class="row">
+              <!-- District Selection -->
+              <div class="col-md-6">
+                 <label for="district1">Choose District for School 1:</label>
+                 <select id="district1" class="form-control" onchange="populateSchools('school1', this.value)">
+                    <option value="districtA">District A</option>
+                    <option value="districtB">District B</option>
+                 </select>
+              </div>
+              <div class="col-md-6">
+                 <label for="district2">Choose District for School 2:</label>
+                 <select id="district2" class="form-control" onchange="populateSchools('school2', this.value)">
+                    <option value="districtA">District A</option>
+                    <option value="districtB">District B</option>
+                 </select>
+              </div>
+           </div>
+
+           <div class="row mt-4">
+              <!-- School Selection -->
+              <div class="col-md-6">
+                 <label for="school1">Choose School 1:</label>
+                 <select id="school1" class="form-control"></select>
+              </div>
+              <div class="col-md-6">
+                 <label for="school2">Choose School 2:</label>
+                 <select id="school2" class="form-control"></select>
+              </div>
+           </div>
+
+           <div class="row mt-4">
+              <div class="col text-center">
+                 <button class="btn big-button" onclick="compareSchools()">Compare</button>
+              </div>
+           </div>
+
+           <div class="row mt-4">
+              <!-- Graph Area -->
+              <div class="col">
+                 <div id="comparisonGraph"></div>
+              </div>
+           </div>
+        </div>
+        <!-- Your scripts go here -->
+        <script>
+           function populateSchools(schoolSelectId, districtValue) {
+              const schoolSelect = document.getElementById(schoolSelectId);
+              schoolSelect.innerHTML = '';
+
+              let schools = [];
+              if (districtValue === 'districtA') {
+                 schools = ['School A1', 'School A2'];
+              } else if (districtValue === 'districtB') {
+                 schools = ['School B1', 'School B2'];
+              }
+
+              schools.forEach(school => {
+                 const option = document.createElement('option');
+                 option.value = school;
+                 option.textContent = school;
+                 schoolSelect.appendChild(option);
+              });
+           }
+function compareSchools() {
+    const graphDiv = document.getElementById('comparisonGraph');
+    
+    // Dummy SVG Line Graph
+    const graph = `
+        <div style="text-align: center;">
+            <svg width="600" height="300">
+                <!-- X and Y Axes -->
+                <line x1="50" y1="270" x2="550" y2="270" stroke="white" />
+                <line x1="50" y1="30" x2="50" y2="270" stroke="white" />
+
+                <!-- Line representing the influence of School Size on Academic Achievement -->
+                <polyline points="100,240 250,150 400,140 500,200" fill="none" stroke="blue" />
+
+                <!-- Line representing the influence of Socioeconomic Status on Academic Achievement -->
+                <polyline points="100,220 250,130 400,90 500,40" fill="none" stroke="green" />
+
+                <!-- Labels -->
+                <text x="100" y="290" font-size="16" fill="white">Small</text>
+                <text x="250" y="290" font-size="16" fill="white">Medium</text>
+                <text x="400" y="290" font-size="16" fill="white">Large</text>
+                <text x="500" y="290" font-size="16" fill="white">Very Large</text>
+
+                <!-- Legend -->
+                <circle cx="150" cy="20" r="6" fill="blue" />
+                <text x="160" y="25" font-size="14" fill="white">School Size</text>
+                <circle cx="350" cy="20" r="6" fill="green" />
+                <text x="360" y="25" font-size="14" fill="white">Socioeconomic Status</text>
+            </svg>
+        </div>
+    `;
+
+    graphDiv.innerHTML = graph;
+}
+
+
+        </script>
+    </div>
+</body>
+
+</html>
