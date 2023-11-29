@@ -23,6 +23,14 @@ class KeystoneExam(models.Model):
     percentage_lit_proficient = models.FloatField()
     percentage_alg_proficient = models.FloatField()
 
+#Model for PSSA Exam
+class PssaExam(models.Model):
+    percentage_eng_proficient = models.FloatField()
+    percentage_math_proficient = models.FloatField()
+    percentage_science_proficient = models.FloatField()
+    school_number = models.IntegerField(primary_key=True)
+    year = models.IntegerField()
+
     class Meta:
         db_table = 'district'
 
