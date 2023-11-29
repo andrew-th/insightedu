@@ -21,9 +21,6 @@ class District(models.Model):
     county_id = models.IntegerField()
     aun = models.IntegerField(primary_key=True)
 
-class District(models.Model):
-    district_name = models.CharField(max_length=255, db_column='district_name')
-
     class Meta:
         db_table = 'district'
 
