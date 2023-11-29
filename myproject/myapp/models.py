@@ -15,9 +15,6 @@ class School (models.Model):
     school_name = models.CharField(max_length=255)
     school_number = models.IntegerField(primary_key=True)
 
-class District(models.Model):
-    district_name = models.CharField(max_length=255, db_column='district_name')
-
 #Model for Keystone Exam
 class KeystoneExam(models.Model):
     school_number = models.IntegerField(primary_key=True)
