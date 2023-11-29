@@ -11,7 +11,7 @@ class Enrollment(models.Model):
 
 #Model for School Table
 class School (models.Model):
-    AUN = models.IntegerField()
+    aun = models.IntegerField()
     school_name = models.CharField(max_length=255)
     school_number = models.IntegerField(primary_key=True)
 
