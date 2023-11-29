@@ -24,7 +24,7 @@ class District(models.Model):
 #Model for Keystone Exam
 class KeystoneExam(models.Model):
     school_number = models.IntegerField(primary_key=True)
-    year = models.IntegerField(primary_key=True)
+    year = models.IntegerField()
     percentage_bio_proficient = models.FloatField()
     percentage_lit_proficient = models.FloatField()
     percentage_alg_proficient = models.FloatField()
