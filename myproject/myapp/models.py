@@ -15,10 +15,16 @@ class School (models.Model):
     school_name = models.CharField(max_length=255)
     school_number = models.IntegerField(primary_key=True)
 
+#Model for District Table
+class District(models.Model):
+    district_name = models.CharField(max_length=255)
+    county_id = models.IntegerField()
+    aun = models.IntegerField()
+
 #Model for Keystone Exam
 class KeystoneExam(models.Model):
     school_number = models.IntegerField(primary_key=True)
-    year = models.IntegerField()
+    year = models.IntegerField(primary_key=True)
     percentage_bio_proficient = models.FloatField()
     percentage_lit_proficient = models.FloatField()
     percentage_alg_proficient = models.FloatField()
