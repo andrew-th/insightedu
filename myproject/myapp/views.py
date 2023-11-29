@@ -9,7 +9,8 @@ def profile_view(request):
     return render(request, 'myapp/profile.html', {'districts': districts, 'data': data})  # Pass the district data to the template
 
 def index_view(request):
-    return render(request, 'myapp/index.html')
+    data = Table1.objects.all()  # Fetch all records from Table1
+    return render(request, 'myapp/index.html', {'data': data})
 
 def compare_view(request):
     return render(request, 'myapp/compare.html')
