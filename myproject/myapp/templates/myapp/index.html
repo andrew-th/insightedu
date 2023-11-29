@@ -100,14 +100,14 @@
         </div>
             <!-- New section for displaying data from Table1 -->
     <div class="mt-4">
-        <h2 class="text-center">Table1 Data</h2>
-<ul class="list-group">
-    {% for entry in data %}
-        <li class="list-group-item" style="background-color: rgba(255, 255, 255, 0.1);">Field1 Value: {{ entry.field1 }}</li>
-    {% empty %}
-        <li class="list-group-item" style="background-color: rgba(255, 255, 255, 0.1);">No data available.</li>
-    {% endfor %}
-</ul>
+        <h2 class="text-center">Table2 Data</h2>
+        <ul>
+            {% for item in data %}
+                <li>{{ item }}</li>  <!-- Replace '{{ item }}' with specific fields if needed -->
+            {% empty %}
+                <li>No items in Table1.</li>
+            {% endfor %}
+        </ul>
 
         <h2 class="text-center">Table1 Data</h2>
         <ul class="list-group">
