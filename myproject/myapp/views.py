@@ -3,7 +3,7 @@ from .models import Enrollment
 from .models import District  # Import the District model
 
 def profile_view(request):
-    districts = District.objects.all()  # Query all district records from the database
+    #districts = District.objects.all()  # Query all district records from the database
     data = Enrollment.objects.all() #Fetch all the records from the Table
     print(districts)  
     return render(request, 'myapp/profile.html', {'districts': districts, 'data': data})  # Pass the district data to the template

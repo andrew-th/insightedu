@@ -23,9 +23,6 @@ class KeystoneExam(models.Model):
     percentage_lit_proficient = models.FloatField()
     percentage_alg_proficient = models.FloatField()
 
-
-
-
     class Meta:
         db_table = 'district'
 
