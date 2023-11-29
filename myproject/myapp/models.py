@@ -6,7 +6,6 @@ class Enrollment(models.Model):
     number_of_students = models.IntegerField()
     number_of_low_income_students = models.IntegerField()
     year = models.IntegerField()
-    percentage_of_low_income_students = models.IntegerField()
     school_number = models.IntegerField()
 
 
