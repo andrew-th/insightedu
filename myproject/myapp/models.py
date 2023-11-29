@@ -6,7 +6,7 @@ class Enrollment(models.Model):
     number_of_students = models.IntegerField()
     number_of_low_income_students = models.IntegerField()
     year = models.IntegerField()
-    school_number = models.IntegerField()
+    school_number = models.IntegerField(primary_key=True)
 
 
 class District(models.Model):
