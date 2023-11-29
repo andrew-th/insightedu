@@ -15,6 +15,11 @@ class School (models.Model):
     school_name = models.CharField(max_length=255)
     school_number = models.IntegerField(primary_key=True)
 
+#Model for District Table
+class District(models.Model):
+    district_name = models.CharField(max_length=255)
+    county_id = models.IntegerField()
+    aun = models.IntegerField(primary_key=True)
 
 class District(models.Model):
     district_name = models.CharField(max_length=255, db_column='district_name')
