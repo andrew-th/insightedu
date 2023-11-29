@@ -31,6 +31,11 @@ class PssaExam(models.Model):
     school_number = models.IntegerField(primary_key=True)
     year = models.IntegerField()
 
+#Model for County 
+class County(models.Model):
+    county_id = models.IntegerField(primary_key=True)
+    county_name = models.CharField(max_length=255)
+
     class Meta:
         db_table = 'district'
 
