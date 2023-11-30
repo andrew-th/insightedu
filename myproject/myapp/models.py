@@ -36,11 +36,6 @@ class County(models.Model):
     county_id = models.IntegerField(primary_key=True)
     county_name = models.CharField(max_length=255)
 
-#Model for District
-class District(models.Model):
-    county_id = models.IntegerField()
-    district_name = models.CharField(max_length=255)
-    aun = models.IntegerField(primary_key=True)
 
 
     class Meta:
