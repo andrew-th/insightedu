@@ -19,6 +19,7 @@ class School (models.Model):
 class KeystoneExam(models.Model):
     school_number = models.IntegerField(primary_key=True)
     year = models.IntegerField()
+    school_name = models.CharField(max_length=255)
     percentage_bio_proficient = models.FloatField()
     percentage_lit_proficient = models.FloatField()
     percentage_alg_proficient = models.FloatField()
