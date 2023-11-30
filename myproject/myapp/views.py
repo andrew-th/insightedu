@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Enrollment
 from .models import School
+from .models import PssaExam
 from .models import KeystoneExam
 #from .models import District  # Import the District model
 
@@ -25,6 +26,6 @@ def compare_view(request):
     return render(request, 'myapp/compare.html')
 
 def display_table1_data(request):
-    data = Enrollment.objects.all()  # Fetch all records from Enrollment
-    print(data)  # Check if data is being fetched
-    return render(request, 'myapp/data.html', {'data': data})
+    data1 = School.objects.all()
+    print(data1)
+    return render(request, 'myapp/data.html', {'data1': data1})
