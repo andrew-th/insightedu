@@ -34,3 +34,7 @@ class PssaExam(models.Model):
 class CountyForm (models.Model):
     county_id=models.IntegerField(primary_key=True)
     county_name=models.CharField(max_length=255)
+
+class DistrictForm (models.Model):
+    district_id=models.IntegerField(primary_key=True)
+    district_name=models.CharField(max_length=255)
