@@ -29,3 +29,8 @@ def display_table1_data(request):
     data1 = School.objects.all()
     print(data1)
     return render(request, 'myapp/data.html', {'data1': data1})
+
+def display_pssa_exam_data(request):
+    data2 = PssaExam.objects.all()
+    print(data2)
+    return render(request, 'myapp/examp.html', {'data2': data2})
