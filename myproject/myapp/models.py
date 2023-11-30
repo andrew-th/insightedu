@@ -30,3 +30,7 @@ class PssaExam(models.Model):
     percentage_science_proficient = models.FloatField()
     school_number = models.IntegerField(primary_key=True)
     year = models.IntegerField()
+
+class CountyForm (models.Model):
+    county_id=models.IntegerField(primary_key=True)
+    county_name=models.CharField(max_length=255)
