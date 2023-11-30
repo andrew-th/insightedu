@@ -6,7 +6,7 @@ def profile_view(request):
     #districts = District.objects.all()  # Query all district records from the database
     data = Enrollment.objects.all() #Fetch all the records from the Table
     #print(districts)  
-    return render(request, 'myapp/profile.html', {'districts': districts, 'data': data})  # Pass the district data to the template
+    return render(request, 'myapp/profile.html', {'data': data})  # Pass the district data to the template
 
 def index_view(request):
     data = Enrollment.objects.all()  # Fetch all records from Enrollment
