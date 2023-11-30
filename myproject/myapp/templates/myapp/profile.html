@@ -2,52 +2,49 @@
 <html>
 <head>
     <title>Enrollment Data</title>
-    <!-- Add CSS for styling -->
+    <!-- Add CSS for styling the scrollable table -->
     <style>
-        .slider {
-            overflow: hidden;
-            white-space: nowrap;
-            transition: transform 0.3s ease;
+        .scrollable-table {
+            overflow-y: auto;
+            height: 400px; /* Adjust the height as needed */
+            border: 1px solid #ddd;
         }
-        .slide {
-            display: inline-block;
-            margin-right: 20px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
-    <div id="slider" class="slider">
-        {% for enrollment in data %}
-        <div class="slide">
-            <p>School Number: {{ enrollment.school_number }}</p>
-            <p>Number of Students: {{ enrollment.number_of_students }}</p>
-            <p>Low Income Students: {{ enrollment.number_of_low_income_students }}</p>
-            <p>Year: {{ enrollment.year }}</p>
-        </div>
-        {% endfor %}
+    <div class="scrollable-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>School Number</th>
+                    <th>Number of Students</th>
+                    <th>Low Income Students</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in data %}
+                <tr>
+                    <td>{{ enrollment.school_number }}</td>
+                    <td>{{ enrollment.number_of_students }}</td>
+                    <td>{{ enrollment.number_of_low_income_students }}</td>
+                    <td>{{ enrollment.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
-    <button id="prev">Previous</button>
-    <button id="next">Next</button>
-
-    <!-- Add JavaScript for sliding functionality -->
-    <script>
-        let slider = document.getElementById('slider');
-        let slideIndex = 0;
-
-        document.getElementById('next').addEventListener('click', function() {
-            slideIndex++;
-            updateSlidePosition();
-        });
-
-        document.getElementById('prev').addEventListener('click', function() {
-            slideIndex--;
-            updateSlidePosition();
-        });
-
-        function updateSlidePosition() {
-            slider.style.transform = 'translateX(' + (-slideIndex * 100) + 'px)';
-        }
-    </script>
 </body>
 </html>
