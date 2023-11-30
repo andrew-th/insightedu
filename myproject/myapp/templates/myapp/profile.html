@@ -1,42 +1,53 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Profiles</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Enrollment Data</title>
+    <!-- Add CSS for styling -->
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #3498db, #2ecc71);
-            color: #fff;
+        .slider {
+            overflow: hidden;
+            white-space: nowrap;
+            transition: transform 0.3s ease;
         }
-
-        .jumbotron {
-            background: transparent;
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .profile-content {
-            max-width: 100%;
-        }
-
-        .card {
-            background-color: #f8f9fa;
-        }
-
-        .card-title, .card-text {
-            color: #333;
-        }
-
-        .list-group-item {
-            background-color: rgba(255, 255, 255, 0.1);
+        .slide {
+            display: inline-block;
+            margin-right: 20px;
         }
     </style>
+</head>
+<body>
+    <div id="slider" class="slider">
+        {% for enrollment in data %}
+        <div class="slide">
+            <p>School Number: {{ enrollment.school_number }}</p>
+            <p>Number of Students: {{ enrollment.number_of_students }}</p>
+            <p>Low Income Students: {{ enrollment.number_of_low_income_students }}</p>
+            <p>Year: {{ enrollment.year }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <button id="prev">Previous</button>
+    <button id="next">Next</button>
+
+    <!-- Add JavaScript for sliding functionality -->
+    <script>
+        let slider = document.getElementById('slider');
+        let slideIndex = 0;
+
+        document.getElementById('next').addEventListener('click', function() {
+            slideIndex++;
+            updateSlidePosition();
+        });
+
+        document.getElementById('prev').addEventListener('click', function() {
+            slideIndex--;
+            updateSlidePosition();
+        });
+
+        function updateSlidePosition() {
+            slider.style.transform = 'translateX(' + (-slideIndex * 100) + 'px)';
+        }
+    </script>
+</body>
 </html>
