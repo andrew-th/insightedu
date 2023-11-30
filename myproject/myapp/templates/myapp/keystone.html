@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PSSA Exam Data</title>
+    <title>Keystone Exam Data</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -49,19 +49,19 @@
                 <tr>
                     <th>School Number</th>
                     <th>Year</th>
-                    <th>English Proficiency (%)</th>
-                    <th>Math Proficiency (%)</th>
-                    <th>Science Proficiency (%)</th>
+                    <th>Biology Proficiency (%)</th>
+                    <th>Literature Proficiency (%)</th>
+                    <th>Algebra Proficiency (%)</th>
                 </tr>
             </thead>
             <tbody>
-                {% for exam in data2 %}
+                {% for exam in data3 %}
                 <tr>
                     <td>{{ exam.school_number }}</td>
                     <td>{{ exam.year }}</td>
-                    <td>{{ exam.percentage_eng_proficient }}</td>
-                    <td>{{ exam.percentage_math_proficient }}</td>
-                    <td>{{ exam.percentage_science_proficient }}</td>
+                    <td>{{ exam.percentage_bio_proficient }}</td>
+                    <td>{{ exam.percentage_lit_proficient }}</td>
+                    <td>{{ exam.percentage_alg_proficient }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

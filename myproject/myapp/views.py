@@ -34,3 +34,8 @@ def display_pssa_exam_data(request):
     data2 = PssaExam.objects.all()
     print(data2)
     return render(request, 'myapp/examp.html', {'data2': data2})
+
+def display_keystone_exam_data(request):
+    data3 = KeystoneExam.objects.all()
+    print(data3)
+    return render(request, 'myapp/keystone.html', {'data3': data3})
