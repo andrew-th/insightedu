@@ -31,10 +31,12 @@ class PssaExam(models.Model):
     school_number = models.IntegerField(primary_key=True)
     year = models.IntegerField()
 
+#Model for County Form
 class CountyForm (models.Model):
     county_id=models.IntegerField(primary_key=True)
     county_name=models.CharField(max_length=255)
-#Model for 
+
+#Model for District Form
 class DistrictForm (models.Model):
     county_name = models.CharField(max_length=255)
     district_id=models.IntegerField(primary_key=True)
