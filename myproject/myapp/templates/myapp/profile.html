@@ -2,28 +2,70 @@
 <html>
 <head>
     <title>Enrollment Data</title>
-    <!-- Add CSS for styling the scrollable table -->
+    <!-- Revised CSS with updated color scheme -->
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* New gradient colors */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .filter-form {
+            margin-bottom: 20px;
+        }
+
+        .filter-form select, .filter-form button {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
         .scrollable-table {
             overflow-y: auto;
             height: 400px; /* Adjust the height as needed */
-            border: 1px solid #ddd;
+            border: 1px solid #6a11cb; /* Border color */
+            background-color: rgba(106, 17, 203, 0.9); /* Semi-transparent background */
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%; /* Adjust as needed */
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
+
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid #2575fc; /* Border color */
             padding: 8px;
             text-align: left;
+            color: #fff; /* Text color */
         }
+
         th {
-            background-color: #f2f2f2;
+            background-color: #6a11cb; /* Header background color */
         }
     </style>
 </head>
 <body>
+    <div class="filter-form">
+        <form action="{% url 'profile' %}" method="get">
+            <select name="year">
+                <option value="">Select Year</option>
+                <option value="2017">2017</option>
+                <!-- Add other years as needed -->
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
     <div class="scrollable-table">
         <table>
             <thead>

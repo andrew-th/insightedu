@@ -8,6 +8,12 @@ def profile_view(request):
     #districts = District.objects.all()  # Query all district records from the database
     data = Enrollment.objects.all() #Fetch all the records from the Table
     data1 = School.objects.all()
+    year = request.GET.get('year', None)
+    #Filter the records based on the year
+    if year:
+        data = Enrollment.objects.filter(year=year) #Filter records based on the year
+    else:
+        data = Enrollment.objects.all() #Fetch all the records if nothing has been selected
     #print(districts)  
     return render(request, 'myapp/profile.html', {'data': data, 'data1':data1})  # Pass the district data to the template
 
