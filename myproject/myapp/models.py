@@ -30,3 +30,6 @@ class PssaExam(models.Model):
     percentage_science_proficient = models.FloatField()
     school_number = models.IntegerField(primary_key=True)
     year = models.IntegerField()
+    
+    def __str__(self):
+        return self.pssa_exam
