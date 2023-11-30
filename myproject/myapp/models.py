@@ -31,5 +31,3 @@ class PssaExam(models.Model):
     school_number = models.IntegerField(primary_key=True)
     year = models.IntegerField()
     
-    def __str__(self):
-        return self.pssa_exam
