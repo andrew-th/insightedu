@@ -3,6 +3,7 @@ from .models import Enrollment
 from .models import School
 from .models import PssaExam
 from .models import KeystoneExam
+from .models import DistrictForm
 #from .models import District  # Import the District model
 
 def profile_view(request):
@@ -39,3 +40,8 @@ def display_keystone_exam_data(request):
     data3 = KeystoneExam.objects.all()
     print(data3)
     return render(request, 'myapp/keystone.html', {'data3': data3})
+
+def display_district_data(request):
+    data4 = DistrictForm.objects.all()
+    print(data4)  # Check if data is correctly fetched
+    return render(request, 'myapp/districtform.html', {'data4': data4})
