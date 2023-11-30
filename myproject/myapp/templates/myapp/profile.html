@@ -39,44 +39,4 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
     </style>
-</head>
-<body>
-    <div class="container py-5">
-        <div class="jumbotron">
-            <h1 style="font-size: 48px;">School and District Profiles</h1>
-            <p style="font-size: 24px;">Select from the dropdown menus</p>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-4 profile-content">
-                <h3>Choose a District</h3>
-                <select id="districts" class="form-select mb-3" aria-label="Select a District">
-                    <option value="0" selected>Select a District</option>
-                    {% for district in districts %}
-                        <option value="{{ district.district_id }}">{{ district.district_name }}</option>
-                    {% endfor %}
-                </select>
-                <!-- Additional content for schools can be added here -->
-            </div>
-            <div class="col-md-6 mt-4">
-                <!-- Placeholder for additional content or visualization -->
-            </div>
-        </div>
-    </div>
-
-    <h2 class="text-center">Table1 Data</h2>
-    <ul class="list-group">
-        {% for entry in table1data %}
-            <li class="list-group-item">Field1 Value: {{ entry.field1 }}</li>
-        {% empty %}
-            <li class="list-group-item">No data available.</li>
-        {% endfor %}
-    </ul>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // JavaScript for dynamic content can be added here
-    </script>
-</body>
 </html>
