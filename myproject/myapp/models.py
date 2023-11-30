@@ -32,7 +32,7 @@ class PssaExam(models.Model):
     year = models.IntegerField()
 
 #Model for County 
-class County(models.Model):
+class CountyModel (models.Model):
     county_id = models.IntegerField(primary_key=True)
     county_name = models.CharField(max_length=255)
 
@@ -41,5 +41,3 @@ class County(models.Model):
 
     def __str__(self):
         return self.district_name
-    
-    
