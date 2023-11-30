@@ -37,5 +37,6 @@ class CountyForm (models.Model):
     county_name=models.CharField(max_length=255)
 
 class DistrictForm (models.Model):
+    county_name = models.CharField(max_length=255)
     district_id=models.IntegerField(primary_key=True)
     district_name=models.CharField(max_length=255)
