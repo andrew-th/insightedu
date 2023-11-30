@@ -26,6 +26,7 @@ class KeystoneExam(models.Model):
 
 #Model for PSSA Exam
 class PssaExam(models.Model):
+    school_name = models.CharField(max_length=255)
     percentage_eng_proficient = models.FloatField()
     percentage_math_proficient = models.FloatField()
     percentage_science_proficient = models.FloatField()
@@ -35,7 +36,7 @@ class PssaExam(models.Model):
 class CountyForm (models.Model):
     county_id=models.IntegerField(primary_key=True)
     county_name=models.CharField(max_length=255)
-
+#Model for 
 class DistrictForm (models.Model):
     county_name = models.CharField(max_length=255)
     district_id=models.IntegerField(primary_key=True)
