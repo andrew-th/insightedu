@@ -28,9 +28,9 @@ def view_data(request):
     return render(request, 'myapp/view.html', {'data': data})
 
 def compare_view(request):
-    data5 = DistrictForm.objects.all()
+    data5 = DistrictF.objects.all()
     print(data5)
-    return render(request, 'myapp/compare.html', {'data5':data})
+    return render(request, 'myapp/compare.html', {'data5':data5})
 
 def display_table1_data(request):
     data1 = School.objects.all()
