@@ -4,6 +4,7 @@ from .models import School
 from .models import PssaExam
 from .models import KeystoneExam
 from .models import DistrictF
+from django.http import JsonResponse
 #from .models import District  
 
 def profile_view(request):
@@ -22,6 +23,14 @@ def profile_view(request):
 def index_view(request):
     data = Enrollment.objects.all()  # Fetch all records from Enrollment
     return render(request, 'myapp/index.html', {'data': data})
+
+def get_counties(request):
+    counties = DistrictF.objects.values_list('county_n', flat=True).distinct()
+    return JsonResponse(list(counties), safe=False)
+
+def get_districts(request, county_name):
+    districts = DistrictF.objects.filter(county_n=county_name).values_list('d_name', flat=True)
+    return JsonResponse(list(districts), safe=False)
 
 def view_data(request):
     data = Enrollment.objects.all()  # Fetch all records from Enrollment

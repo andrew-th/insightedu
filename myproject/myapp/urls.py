@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import get_counties, get_districts
 from . import views
 
 
@@ -10,5 +11,7 @@ urlpatterns = [
     path('examp/', views.display_pssa_exam_data, name='display_pssa_exam_data'),
     path('keystone/', views.display_keystone_exam_data, name='display_keystone_exam_data'),
     path('district/', views.display_district_data, name='display_district_data'),
-    path('view_data/', views.view_data, name='view_data')
+    path('view_data/', views.view_data, name='view_data'),
+    path('get-counties/', get_counties, name='get-counties'),
+    path('get-districts/<str:county_name>/', get_districts, name='get-districts'),
 ]

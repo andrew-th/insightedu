@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,7 +41,8 @@
             margin: 0 auto;
         }
 
-        select.form-control, label {
+        select.form-control,
+        label {
             background-color: rgba(255, 255, 255, 0.1);
             border: 1px solid #fff;
             border-radius: 5px;
@@ -50,5 +52,54 @@
             background-color: rgba(255, 255, 255, 0.2);
         }
     </style>
+    <!-- ... existing HTML ... -->
+
+<body>
+    <div class="container py-5">
+        <!-- ... existing content ... -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <label for="countySelect">Choose County:</label>
+                <select id="countySelect" class="form-control" onchange="populateDistricts()">
+                    <option value="">Select a County</option>
+                    <!-- Counties will be populated here -->
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="districtSelect">Choose District:</label>
+                <select id="districtSelect" class="form-control">
+                    <option value="">Select a District</option>
+                    <!-- Districts will be populated based on county selection -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // JavaScript to populate counties and districts
+        // ... JavaScript code will be here ...
+        $(document).ready(function () {
+            // Populate counties on page load
+            $.getJSON('/get-counties/', function (data) {
+                data.forEach(function (county) {
+                    $('#countySelect').append(new Option(county, county));
+                });
+            });
+        });
+
+        function populateDistricts() {
+            var selectedCounty = $('#countySelect').val();
+            $('#districtSelect').empty().append(new Option('Select a District', ''));
+            if (selectedCounty) {
+                $.getJSON('/get-districts/' + selectedCounty + '/', function (data) {
+                    data.forEach(function (district) {
+                        $('#districtSelect').append(new Option(district, district));
+                    });
+                });
+            }
+        }
+    </script>
+</body>
 </head>
+
 </html>
