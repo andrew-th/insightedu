@@ -23,6 +23,10 @@ def index_view(request):
     data = Enrollment.objects.all()  # Fetch all records from Enrollment
     return render(request, 'myapp/index.html', {'data': data})
 
+def view_data(request):
+    data = Enrollment.objects.all()  # Fetch all records from Enrollment
+    return render(request, 'myapp/view_data.html', {'data': data})
+
 def compare_view(request):
     return render(request, 'myapp/compare.html')
 

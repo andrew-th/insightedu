@@ -9,5 +9,6 @@ urlpatterns = [
     path('data/', views.display_table1_data, name='display_table1_data'),
     path('examp/', views.display_pssa_exam_data, name='display_pssa_exam_data'),
     path('keystone/', views.display_keystone_exam_data, name='display_keystone_exam_data'),
-    path('district/', views.display_district_data, name='display_district_data')
+    path('district/', views.display_district_data, name='display_district_data'),
+    path('view_data/', views.view_data, name='view_data')
 ]
