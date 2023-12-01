@@ -4,7 +4,7 @@ from .models import School
 from .models import PssaExam
 from .models import KeystoneExam
 from .models import DistrictForm
-#from .models import District  # Import the District model
+#from .models import District  
 
 def profile_view(request):
     #districts = District.objects.all()  # Query all district records from the database
