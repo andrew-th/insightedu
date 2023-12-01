@@ -44,4 +44,4 @@ def display_keystone_exam_data(request):
 def display_district_data(request):
     data4 = DistrictForm.objects.all()
     print(data4)  # Check if data is correctly fetched
-    return render(request, 'myapp/districtform.html', {'data4': data4})
+    return render(request, 'myapp/district.html', {'data4': data4})
