@@ -3,7 +3,7 @@ from .models import Enrollment
 from .models import School
 from .models import PssaExam
 from .models import KeystoneExam
-from .models import DistrictForm
+from .models import DistrictF
 #from .models import District  
 
 def profile_view(request):
@@ -25,10 +25,12 @@ def index_view(request):
 
 def view_data(request):
     data = Enrollment.objects.all()  # Fetch all records from Enrollment
-    return render(request, 'myapp/view_data.html', {'data': data})
+    return render(request, 'myapp/view.html', {'data': data})
 
 def compare_view(request):
-    return render(request, 'myapp/compare.html')
+    data5 = DistrictForm.objects.all()
+    print(data5)
+    return render(request, 'myapp/compare.html', {'data5':data})
 
 def display_table1_data(request):
     data1 = School.objects.all()
@@ -49,3 +51,7 @@ def display_district_data(request):
     data4 = DistrictForm.objects.all()
     print(data4)  # Check if data is correctly fetched
     return render(request, 'myapp/district.html', {'data4': data4})
+
+def compare_data(request):
+    data5 = DistrictF.objects.all()
+    return render(request, 'myapp/compare.html', {'data5':data5})
