@@ -90,10 +90,14 @@
                 <!-- School numbers will be populated here -->
             </select>
         </div>
+        <div class="col-md-12 mt-4">
+            <canvas id="schoolDataChart"></canvas>
+        </div>
 
 
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // JavaScript to populate counties and districts
         // ... JavaScript code will be here ...
@@ -174,6 +178,51 @@
                 });
             }
         });
+        $('#schoolNumberSelect').change(function () {
+            var selectedSchoolNumber = $(this).val();
+            fetchAndRenderChart(selectedSchoolNumber);
+        });
+
+        function fetchAndRenderChart(schoolNumber) {
+            $.getJSON('/school-data/' + schoolNumber, function (data) {
+                console.log("data",data);
+                const ctx = document.getElementById('schoolDataChart').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'scatter',  // Use scatter type for individual data points
+                    data: {
+                        datasets: [{
+                            label: 'School Performance',
+                            data: data.sizes.map((size, index) => ({
+                                x: size,
+                                y: data.successRates[index]
+                            })),
+                            backgroundColor: 'rgba(0, 123, 255, 0.5)'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom',
+                                title: {
+                                    display: true,
+                                    text: 'School Size'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Keystone Exam Success Rate (%)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }).fail(function () {
+                console.error("Error fetching school data.");
+            });
+        }
+
 
 
 

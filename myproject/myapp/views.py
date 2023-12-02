@@ -80,6 +80,7 @@ def get_school_ids(request, school_type):
         schools = Category.objects.filter(middle_school=1)
     elif school_type == 'high':
         schools = Category.objects.filter(high_school=1)
+        print ("schools",schools.count())
     else:
         return JsonResponse({'error': 'Invalid school type'}, status=400)
 
@@ -101,3 +102,47 @@ def get_school_names_by_type(request, school_type):
 
     school_data = schools.values('school_number', 'school_name')
     return JsonResponse(list(school_data), safe=False)
+
+
+def get_school_yearly_data(request, school_number):
+    print(KeystoneExam.objects.all())  # Check if there's data in KeystoneExam
+    print(Enrollment.objects.all())    # Check if there's data in Enrollment
+    data = []
+    keystone_exams = KeystoneExam.objects.filter(school_number=school_number)
+    
+    for exam in keystone_exams:
+        year = exam.year
+        try:
+            enrollment = Enrollment.objects.get(school_number=school_number, year=year)
+            number_of_students = enrollment.number_of_students
+        except Enrollment.DoesNotExist:
+            number_of_students = None
+        
+        data.append({
+            'year': year,
+            'number_of_students': number_of_students,
+            'percentage_bio_proficient': exam.percentage_bio_proficient,
+            # Add other Keystone exam metrics if needed
+        })
+
+    return JsonResponse(data, safe=False)
+
+def school_data_endpoint(request, school_number):
+    data = {'sizes': [], 'successRates': []}
+
+    keystone_exams = KeystoneExam.objects.filter(school_number=school_number)
+    print(f"Number of exams found: {keystone_exams.count()}")  # Debugging
+
+    for exam in keystone_exams:
+        print(f"Processing Keystone Exam for year: {exam.year}")  # Debugging
+        try:
+            enrollment = Enrollment.objects.get(school_number=school_number, year=exam.year)
+            print(f"Found Enrollment: {enrollment.number_of_students} students")  # Debugging
+            data['sizes'].append(enrollment.number_of_students)
+            data['successRates'].append(exam.percentage_bio_proficient)
+        except Enrollment.DoesNotExist:
+            print(f"No Enrollment found for year: {exam.year}")  # Debugging
+            continue
+
+    print("Final Data:", data)  # Debugging
+    return JsonResponse(data)

@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import get_counties, get_districts,get_school_names
 from .views import get_school_names_by_type
+from .views import school_data_endpoint
 
 from . import views
 
@@ -18,5 +19,6 @@ urlpatterns = [
     path('get-districts/<str:county_name>/', get_districts, name='get-districts'),
     path('get-school-ids/<str:school_type>/', views.get_school_ids, name='get_school_ids'),
     path('get-school-names/<str:school_type>/', get_school_names, name='get-school-names'),
+    path('school-data/<int:school_number>/', school_data_endpoint, name='school-data-endpoint'),
     path('get-school-names-by-type/<str:school_type>/', get_school_names_by_type, name='get-school-names-by-type'),
 ]
