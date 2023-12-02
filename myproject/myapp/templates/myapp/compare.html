@@ -73,6 +73,25 @@
                 </select>
             </div>
         </div>
+        <!-- Add this after the district selection in your HTML -->
+        <div class="col-md-6">
+            <label for="schoolTypeSelect">Choose School Type:</label>
+            <select id="schoolTypeSelect" class="form-control">
+                <option value="">Select a School Type</option>
+                <option value="elementary">Elementary School</option>
+                <option value="middle">Middle School</option>
+                <option value="high">High School</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="schoolNumberSelect">Choose School:</label>
+            <select id="schoolNumberSelect" class="form-control">
+                <option value="">Select a School</option>
+                <!-- School numbers will be populated here -->
+            </select>
+        </div>
+
+
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -98,6 +117,35 @@
                 });
             }
         }
+
+        $('#schoolTypeSelect').change(function () {
+            var selectedSchoolType = $(this).val();
+            if (selectedSchoolType) {
+                $.getJSON('/get-school-ids/' + selectedSchoolType + '/', function (response) {
+                    // Do something with the school IDs
+                    console.log(response.school_ids); // Example: log to console
+                }).fail(function () {
+                    console.error("Error fetching school IDs.");
+                });
+            }
+        });
+        $('#schoolTypeSelect').change(function () {
+            var selectedSchoolType = $(this).val();
+            $('#schoolNumberSelect').empty().append(new Option('Select a School', '')); // Clear existing options
+
+            if (selectedSchoolType) {
+                $.getJSON('/get-school-ids/' + selectedSchoolType + '/', function (response) {
+                    response.school_ids.forEach(function (schoolId) {
+                        $('#schoolNumberSelect').append(new Option(schoolId, schoolId));
+                    });
+                }).fail(function () {
+                    console.error("Error fetching school IDs.");
+                    // Optionally add a fallback option or message
+                });
+            }
+        });
+
+
     </script>
 </body>
 </head>

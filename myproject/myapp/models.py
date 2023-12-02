@@ -14,9 +14,6 @@ class School (models.Model):
     aun = models.IntegerField()
     school_name = models.CharField(max_length=255)
     school_number = models.IntegerField()
-    high_school = models.IntegerField()
-    elementary_school = models.IntegerField()
-    middle_school = models.IntegerField()
 
 #Model for Keystone Exam
 class KeystoneExam(models.Model):
@@ -49,4 +46,10 @@ class DistrictF(models.Model):
     county_n = models.CharField(max_length=255)
     d_id=models.IntegerField(primary_key=True)
     d_name=models.CharField(max_length=255)
+
+class Category(models.Model):
+    school_number = models.IntegerField(primary_key=True)
+    high_school = models.IntegerField()
+    middle_school = models.IntegerField()
+    elementary_school = models.IntegerField()
     

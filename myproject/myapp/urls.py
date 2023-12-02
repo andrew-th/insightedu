@@ -14,4 +14,5 @@ urlpatterns = [
     path('view_data/', views.view_data, name='view_data'),
     path('get-counties/', get_counties, name='get-counties'),
     path('get-districts/<str:county_name>/', get_districts, name='get-districts'),
+    path('get-school-ids/<str:school_type>/', views.get_school_ids, name='get_school_ids'),
 ]

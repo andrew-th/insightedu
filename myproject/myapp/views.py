@@ -5,6 +5,8 @@ from .models import PssaExam
 from .models import KeystoneExam
 from .models import DistrictF
 from django.http import JsonResponse
+from .models import Category
+
 #from .models import District  
 
 def profile_view(request):
@@ -64,3 +66,20 @@ def display_district_data(request):
 def compare_data(request):
     data5 = DistrictF.objects.all()
     return render(request, 'myapp/compare.html', {'data5':data5})
+
+def get_school_ids(request, school_type):
+    if school_type == 'elementary':
+        schools = Category.objects.filter(elementary_school=1)
+    elif school_type == 'middle':
+        schools = Category.objects.filter(middle_school=1)
+    elif school_type == 'high':
+        schools = Category.objects.filter(high_school=1)
+    else:
+        return JsonResponse({'error': 'Invalid school type'}, status=400)
+
+    school_ids = [school.school_number for school in schools]
+    print("Fetched schools:", school_ids)
+    response_data = {'school_ids': school_ids}
+    print("Sending response:", response_data)
+    return JsonResponse(response_data)
+
