@@ -67,6 +67,10 @@ def compare_data(request):
     data5 = DistrictF.objects.all()
     return render(request, 'myapp/compare.html', {'data5':data5})
 
+def get_school_names(request, school_type):
+    schools = School.objects.filter(type=school_type).values('school_number', 'school_name')
+    return JsonResponse(list(schools), safe=False)
+
 def get_school_ids(request, school_type):
     if school_type == 'elementary':
         schools = Category.objects.filter(elementary_school=1)

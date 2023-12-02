@@ -15,4 +15,5 @@ urlpatterns = [
     path('get-counties/', get_counties, name='get-counties'),
     path('get-districts/<str:county_name>/', get_districts, name='get-districts'),
     path('get-school-ids/<str:school_type>/', views.get_school_ids, name='get_school_ids'),
+    path('get-school-names/<str:school_type>/', get_school_names, name='get-school-names'),
 ]
