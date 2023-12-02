@@ -53,3 +53,9 @@ class Category(models.Model):
     middle_school = models.IntegerField()
     elementary_school = models.IntegerField()
     
+class Type(models.Model):
+    school_number = models.IntegerField(primary_key=True)
+    school_name = models.CharField(max_length=255)
+    high_school = models.IntegerField()
+    middle_school = models.IntegerField()
+    elementary_school = models.IntegerField()

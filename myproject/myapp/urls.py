@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import get_counties, get_districts
+from .views import get_counties, get_districts,get_school_names
 from . import views
 
 
