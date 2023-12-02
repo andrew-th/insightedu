@@ -122,7 +122,8 @@ def get_school_yearly_data(request, school_number):
             'year': year,
             'number_of_students': number_of_students,
             'percentage_bio_proficient': exam.percentage_bio_proficient,
-            # Add other Keystone exam metrics if needed
+            'percentage_alg_proficient': exam.percentage_alg_proficient,
+            'percentage_lit_proficient': exam.percentage_lit_proficient,
         })
 
     return JsonResponse(data, safe=False)
@@ -139,7 +140,8 @@ def school_data_endpoint(request, school_number):
             enrollment = Enrollment.objects.get(school_number=school_number, year=exam.year)
             print(f"Found Enrollment: {enrollment.number_of_students} students")  # Debugging
             data['sizes'].append(enrollment.number_of_students)
-            data['successRates'].append(exam.percentage_bio_proficient)
+            success = (exam.percentage_alg_proficient + exam.percentage_bio_proficient + exam.percentage_lit_proficient)/3
+            data['successRates'].append(success)
         except Enrollment.DoesNotExist:
             print(f"No Enrollment found for year: {exam.year}")  # Debugging
             continue
