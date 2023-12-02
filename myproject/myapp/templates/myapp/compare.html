@@ -159,6 +159,22 @@
                 });
             }
         });
+        $('#schoolTypeSelect').change(function () {
+            var selectedSchoolType = $(this).val();
+            $('#schoolNumberSelect').empty().append(new Option('Select a School', '')); // Clear existing options
+
+            if (selectedSchoolType) {
+                $.getJSON('/get-school-names-by-type/' + selectedSchoolType + '/', function (response) {
+                    response.forEach(function (school) {
+                        $('#schoolNumberSelect').append(new Option(school.school_name, school.school_number));
+                    });
+                }).fail(function () {
+                    console.error("Error fetching school names.");
+                    // Optionally add a fallback option or message
+                });
+            }
+        });
+
 
 
 

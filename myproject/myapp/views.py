@@ -6,6 +6,8 @@ from .models import KeystoneExam
 from .models import DistrictF
 from django.http import JsonResponse
 from .models import Category
+from .models import Type
+
 
 #from .models import District  
 
@@ -87,3 +89,15 @@ def get_school_ids(request, school_type):
     print("Sending response:", response_data)
     return JsonResponse(response_data)
 
+def get_school_names_by_type(request, school_type):
+    if school_type == 'elementary':
+        schools = Type.objects.filter(elementary_school=1)
+    elif school_type == 'middle':
+        schools = Type.objects.filter(middle_school=1)
+    elif school_type == 'high':
+        schools = Type.objects.filter(high_school=1)
+    else:
+        return JsonResponse({'error': 'Invalid school type'}, status=400)
+
+    school_data = schools.values('school_number', 'school_name')
+    return JsonResponse(list(school_data), safe=False)
