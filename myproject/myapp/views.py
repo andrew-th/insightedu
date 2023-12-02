@@ -129,21 +129,28 @@ def get_school_yearly_data(request, school_number):
     return JsonResponse(data, safe=False)
 
 def school_data_endpoint(request, school_number):
-    data = {'sizes': [], 'successRates': []}
+    data = {
+        'sizes': [],
+        'successRates': [],
+        'lowIncomeProportions': [],  # New data for low income proportions
+    }
 
     keystone_exams = KeystoneExam.objects.filter(school_number=school_number)
-    print(f"Number of exams found: {keystone_exams.count()}")  # Debugging
 
     for exam in keystone_exams:
-        print(f"Processing Keystone Exam for year: {exam.year}")  # Debugging
         try:
             enrollment = Enrollment.objects.get(school_number=school_number, year=exam.year)
-            print(f"Found Enrollment: {enrollment.number_of_students} students")  # Debugging
-            data['sizes'].append(enrollment.number_of_students)
-            data['successRates'].append(exam.percentage_alg_proficient)
-        except Enrollment.DoesNotExist:
-            print(f"No Enrollment found for year: {exam.year}")  # Debugging
+            number_of_students = int(enrollment.number_of_students.replace(',', ''))
+            low_income_students = int(enrollment.number_of_low_income_students.replace(',', ''))
+            
+            # Avoid division by zero and ensure both numbers are greater than zero
+            if low_income_students > 0 and number_of_students > 0:
+                proportion = (low_income_students / number_of_students) * 100
+                data['lowIncomeProportions'].append(proportion)
+                data['sizes'].append(number_of_students)
+                data['successRates'].append((exam.percentage_alg_proficient + exam.percentage_lit_proficient + exam.percentage_bio_proficient) / 3)
+        except (Enrollment.DoesNotExist, ValueError, ZeroDivisionError):
             continue
 
-    print("Final Data:", data)  # Debugging
     return JsonResponse(data)
+
