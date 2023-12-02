@@ -140,8 +140,7 @@ def school_data_endpoint(request, school_number):
             enrollment = Enrollment.objects.get(school_number=school_number, year=exam.year)
             print(f"Found Enrollment: {enrollment.number_of_students} students")  # Debugging
             data['sizes'].append(enrollment.number_of_students)
-            success = (exam.percentage_alg_proficient + exam.percentage_bio_proficient + exam.percentage_lit_proficient)/3
-            data['successRates'].append(success)
+            data['successRates'].append(exam.percentage_alg_proficient)
         except Enrollment.DoesNotExist:
             print(f"No Enrollment found for year: {exam.year}")  # Debugging
             continue
