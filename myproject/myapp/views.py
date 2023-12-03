@@ -129,28 +129,36 @@ def get_school_yearly_data(request, school_number):
     return JsonResponse(data, safe=False)
 
 def school_data_endpoint(request, school_number):
-    data = {
-        'sizes': [],
-        'successRates': [],
-        'lowIncomeProportions': [],  # New data for low income proportions
-    }
+    data = {'sizes': [], 'successRates': [], 'lowIncomeProportion' : [] }
 
     keystone_exams = KeystoneExam.objects.filter(school_number=school_number)
+    pssa_exams = PssaExam.objects.filter(school_number = school_number)
+    
+    print(f"Number of exams found: {keystone_exams.count()}")  # Debugging
 
     for exam in keystone_exams:
+        print(f"Processing Keystone Exam for year: {exam.year}")  # Debugging
         try:
             enrollment = Enrollment.objects.get(school_number=school_number, year=exam.year)
-            number_of_students = int(enrollment.number_of_students.replace(',', ''))
-            low_income_students = int(enrollment.number_of_low_income_students.replace(',', ''))
-            
-            # Avoid division by zero and ensure both numbers are greater than zero
-            if low_income_students > 0 and number_of_students > 0:
-                proportion = (low_income_students / number_of_students) * 100
-                data['lowIncomeProportions'].append(proportion)
-                data['sizes'].append(number_of_students)
-                data['successRates'].append((exam.percentage_alg_proficient + exam.percentage_lit_proficient + exam.percentage_bio_proficient) / 3)
-        except (Enrollment.DoesNotExist, ValueError, ZeroDivisionError):
+            print(f"Found Enrollment: {enrollment.number_of_students} students")  # Debugging
+            data['sizes'].append(enrollment.number_of_students)
+            data['successRates'].append(((exam.percentage_alg_proficient)+(exam.percentage_bio_proficient)+(exam.percentage_lit_proficient))/3)
+            data['lowIncomeProportion'].append((enrollment.number_of_low_income_students) / (enrollment.number_of_students))
+        except Enrollment.DoesNotExist:
+            print(f"No Enrollment found for year: {exam.year}")  # Debugging
             continue
+    
+    for exam_1 in pssa_exams:
+        try:
+            enrollment = Enrollment.objects.get(school_number=school_number, year=exam_1.year)
+            print(f"Found Enrollment: {enrollment.number_of_students} students")  # Debugging
+            data['sizes'].append(enrollment.number_of_students)
+            data['successRates'].append(((exam_1.percentage_eng_proficient)+(exam_1.percentage_math_proficient)+(exam_1.percentage_science_proficient))/3)
+            data['lowIncomeProportion'].append((enrollment.number_of_low_income_students) / (enrollment.number_of_students))
+        except Enrollment.DoesNotExist:
+            print(f"No Enrollment found for year: {exam.year}")  # Debugging
+            continue
+        
 
+    print("Final Data:", data)  # Debugging
     return JsonResponse(data)
-
